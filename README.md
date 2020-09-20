@@ -1,2 +1,1 @@
-This will be our project 
-cool! 
+The current version is NonReactVersion and open the main.html file
