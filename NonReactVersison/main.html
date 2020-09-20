@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Embedding Vega-Lite</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.15.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.15.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.11.1"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <!--https://bootswatch.com/lux/-->
+</head>
+
+<body style="max-height: 100vh;overflow:hidden">
+    <div style="position:absolute" id="images"></div>
+
+    <div id="missionModal" class="this-modal">
+        <div class="this-modal-content">
+            <p>
+                <!--After examining the Big Cities Health data sets, we noticed a clear pattern of
+                racial disparity when it comes to access to healthcare. By creating our website to show
+                easy to read and interactive graphs, we help other people notice these unfair patterns
+                for themselves. By raising awareness we are also raising the ability
+                to decrease inequality in healthcare.-->
+                Clear patterns of healthcare inequity exist along racial lines. However, the severity of
+                these trends may be hard to put into perspective. The mission of this website is to provide
+                all individuals with quantitative information to better understand the breadth and
+                depth of this healthcare inequity crisis. When more individuals become aware of how race
+                affects healthcare outcomes, we can add urgency to the movement for greater equality.
+                Please feel free to look around for resources you can use to become an ally!
+            </p>
+        </div>
+    </div>
+    <div id="resourcesModal" class="this-modal">
+        <div style="display:flex">
+            <div class="this-modal-content">
+                <p>Behavorial Health and Substance Abuse</p>
+                <a href="https://www.samhsa.gov/find-help/national-helpline">National Helpline and Resources</a>
+                <br />
+                <a href="https://www.mhanational.org/donate-mental-health-america">Donate</a>
+            </div>
+            <div class="this-modal-content">
+                <p>Cancer</p>
+                <a href="https://www.samhsa.gov/find-help/national-helpline">ACS Local Resource Finder</a>
+                <br />
+                <a href="https://www.cancer.org/involved/donate.html">Donate</a>
+            </div>
+            <div class="this-modal-content">
+                <p>HIV/AIDS</p>
+                <a href="https://www.amfar.org/hiv-racial-disparities-cnn/">Closing HIV Racial Disparities</a>
+                <br />
+                <a
+                    href="https://www.americanprogress.org/wp-content/uploads/issues/2012/07/pdf/hiv_community_of_color.pdf">Center
+                    for American Progress</a>
+            </div>
+        </div>
+        <div style="display:flex">
+            <div class="this-modal-content">
+                <p>Infectious Disease</p>
+                <a href="https://www.nejm.org/doi/full/10.1056/NEJMp2019445">COVID and Color</a>
+                <br />
+                <a href="https://www.niaid.nih.gov/research/minority-health">National Institute of Allergy and
+                    Infectious Diseases</a>
+            </div>
+            <div class="this-modal-content">
+                <p>Injury and Violence</p>
+                <a href="https://oag.ca.gov/firearms/tips">Firearm Safety</a>
+                <br />
+                <a href="http://www.sprc.org/scope/racial-ethnic-disparities">Suicide Prevention Center</a>
+            </div>
+            <div class="this-modal-content">
+                <p>Life Expectancy and Death Rate</p>
+                <a href="https://www.healthaffairs.org/doi/full/10.1377/hlthaff.2011.0746">Life Expectancy and Race</a>
+                <br />
+                <a href="https://www.cdc.gov/coronavirus/2019-ncov/covid-data/investigations-discovery/hospitalization-death-by-race-ethnicity.html">CDC</a>
+            </div>
+        </div>
+        <div style="display:flex">
+            <div class="this-modal-content">
+                <p>Maternal and Child Health</p>
+                <a
+                    href="https://www.americanprogress.org/issues/women/reports/2019/05/02/469186/eliminating-racial-disparities-maternal-infant-mortality/">Center
+                    for American Progress</a>
+                <br />
+                <a
+                    href="https://ccf.georgetown.edu/2018/06/11/disparities-exist-in-childrens-coverage-by-raceethnicity-income-and-maternal-health/">Georgetown
+                    University Center for Children and Families</a>
+            </div>
+            <div class="this-modal-content">
+                <p>Nutrition and Physical Activity</p>
+                <a
+                    href="https://blogs.cdc.gov/healthequity/2019/04/24/addressing-racial-and-ethnic-health-disparities-in-adult-obesity-and-encouraging-physical-activity-this-national-minority-health-month/">CDC</a>
+                <br />
+                <a href="https://academic.oup.com/ajcn/article/93/5/1161S/4597882">The American Journal of Clinical
+                    Nutrition</a>
+            </div>
+            <div class="this-modal-content">
+                <p>Tobacco</p>
+                <a
+                    href="https://www.lung.org/quit-smoking/smoking-facts/impact-of-tobacco-use/tobacco-use-racial-and-ethnic">American
+                    Lung Association</a>
+                <br />
+                <a href="https://www.cdc.gov/tobacco/disparities/index.htm">CDC</a>
+            </div>
+        </div>
+    </div>
+
+    <div
+        style="overflow:hidden;position: relative; background-color: rgba(153, 209, 199, 0.3);padding:2em;height: 100vh;">
+        <div style="display:flex">
+            <div>
+                <div id="title" style="display:flex;">
+                    <a href="../">
+                        <img src="https://img.icons8.com/ios/452/quail.png" style="width:50px;height:50px;" />
+                    </a>
+                    <h1 style="vertical-align: center;text-align:center;padding-top:10px;margin-left:10px">healquail
+                    </h1>
+                </div>
+                <div id="selections" style="display:flex">
+                    <div style="min-width: 30vw;width:30vw;height: 75vh;padding:15px">
+                        Bar
+                        <div class="switch custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                            <label class="custom-control-label" for="customSwitch1">Line</label>
+                        </div>
+                        <br />
+
+                        <div style="height:50px;display:flex;">
+                            <p style="vertical-align:center;width:100px;margin-top:10px">Location</p>
+                            <select style="padding:5px!important;margin-bottom:5px"
+                                class="col-form-label-sm form-control" onchange="getLocation(this.value)"
+                                name="locations" id="locations">
+                                <option value="" disabled selected>Select</option>
+                                <option value="Atlanta (Fulton County), GA" label="Atlanta (Fulton County), GA">
+                                </option>,
+                                <option value="Kansas City, MO" label="Kansas City, MO"></option>,
+                                <option value="Long Beach, CA" label="Long Beach, CA"></option>,
+                                <option value="San Jose, CA" label="San Jose, CA"></option>,
+                                <option value="Washington, DC" label="Washington, DC"></option>,
+                                <option value="U.S. Total" label="U.S. Total"></option>,
+                                <option value="Seattle, WA" label="Seattle, WA"></option>,
+                                <option value="Baltimore, MD" label="Baltimore, MD"></option>,
+                                <option value="Boston, MA" label="Boston, MA"></option>,
+                                <option value="Chicago, IL" label="Chicago, IL"></option>
+                                <option value="Cleveland, OH" label="Cleveland, OH"></option>
+                                <option value="Dallas, TX" label="Dallas, TX"></option>
+                                <option value="Denver, CO" label="Denver, CO"></option>
+                                <option value="Detroit, MI" label="Detroit, MI"></option>
+                                <option value="Fort Worth (Tarrant County), TX" label="Fort Worth (Tarrant County), TX">
+                                </option>
+                                <option value="Houston, TX" label="Houston, TX"></option>
+                                <option value="Las Vegas (Clark County), NV" label="Las Vegas (Clark County), NV">
+                                </option>
+                                <option value="Miami (Miami-Dade County), FL" label="Miami (Miami-Dade County), FL">
+                                </option>
+                                <option value="Minneapolis, MN" label="Minneapolis, MN"></option>
+                                <option value="New York, NY" label="New York, NY"></option>
+                                <option value="Oakland, CA" label="Oakland, CA"></option>
+                                <option value="Philadelphia, PA" label="Philadelphia, PA"></option>
+                                <option value="Phoenix, AZ" label="Phoenix, AZ"></option>
+                                <option value="Portland (Multnomah County), OR" label="Portland (Multnomah County), OR">
+                                </option>
+                                <option value="Sacramento, CA" label="Sacramento, CA"></option>
+                                <option value="San Antonio, TX" label="San Antonio, TX"></option>
+                                <option value="San Diego County, CA" label="San Diego County, CA"></option>
+                                <option value="San Francisco, CA" label="San Francisco, CA"></option>
+                            </select>
+                        </div>
+                        <div style="display:flex">
+                            <p style="width:100px;margin-top:10px">Issue</p>
+                            <select style="padding:5px!important;" onchange="setIndicator(value)"
+                                class="form-control col-form-label-sm" name="category" id="category">
+                                <option value="" disabled selected>Select Above First</option>ß
+                            </select>
+                        </div>
+                        <br />
+                        <button onclick="graphNew()" type="button" class="btn-sm btn btn-outline-primary">Graph</button>
+                        <button id="mission" class="btn btn-sm btn-outline-success">Our Mission</button>
+                        <button id="resources" class="btn btn-sm btn-outline-danger">Resources</button>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        <p> Data came from the Big Cities Health dataset on data.world.
+                            Attribution to the U.S. Centers
+                            for Disease Control and Prevention. Please consider context when using these visualizations
+                            to draw conclusions. When comparing data between cities, recognize how distinct cities might have
+                            different criteria for classifying statistics.</p>
+                            <a href="https://data.world/health/big-cities-health">Dataset Link</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div
+                style="-webkit-box-shadow: 0 6px 6px -6px #777;
+            -moz-box-shadow: 0 10px 6px -6px #777;
+                 box-shadow: 0 10px 6px -6px #777;margin-top: 60px;padding-top:30px;overflow:auto;width: 80%;height:80vh; background-color:white;overflow-y: hidden">
+                <div id="vis"></div>
+                <img src="https://i.ibb.co/WF0Wcfz/healquail.png" style="margin-left:250px;width:100;height:100" />
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var modal = document.getElementById("missionModal");
+        var btn = document.getElementById("mission");
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        var modal2 = document.getElementById("resourcesModal");
+        var btn2 = document.getElementById("resources");
+        btn2.onclick = function () {
+            console.log("hello")
+            modal2.style.display = "block";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal || event.target == modal2) {
+                modal.style.display = "none";
+                modal2.style.display = "none";
+            }
+        }
+
+
+        var graphStyle = 'bar';
+        var place = 'datum.Place == "Atlanta (Fulton County), GA"';
+        var yaxislabel = 'All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)';
+        var indicator = 'datum.Indicator == "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)"';
+
+        function graphNew() {
+
+            /*console.log(indicator)
+            console.log(place)*/
+            if (graphStyle == 'bar') {
+                console.log("graphfunction")
+                console.log(indicator)
+                console.log(place)
+                var yourVlSpec = {
+                    width: 400,
+                    height: 400,
+                    $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+                    description: 'Public Health Data by Race By Place',
+                    data: { url: "/data/GEORGEDATA.tsv" },
+                    transform: [
+                        { filter: 'datum.Gender == "Both"' },
+                        { filter: indicator },
+                        { filter: place }
+
+                        //{calculate: "datum.Race/ Ethnicity == 2 ? 'Female' : 'Male'", "as": "gender"}
+                    ],
+                    selection: { highlight: { type: "single", empty: "none", on: "mouseover" }, select: { type: "multi" } },
+                    mark: { type: graphStyle, stroke: "black", cursor: "pointer", cornerRadiusEnd: 8 },
+
+                    encoding: {
+                        column: { timeUnit: "year", field: "Year", title: document.getElementById('locations').value + " by Year:     " + yaxislabel },
+                        x: { field: "Race", title: "" },
+                        y: { field: "Value", type: "quantitative" },
+                        color: { field: "Race", type: "nominal" },
+                        fillOpacity: { condition: { selection: "select", value: 1 }, value: 0.3 },
+                        strokeWidth: {
+                            condition: [{
+                                test: {
+                                    and: [{ selection: "select" },
+                                        "length(data(\"select_store\"))"]
+                                },
+                                value: 2
+                            }, { selection: "highlight", value: 1 }],
+                            value: 0
+                        }
+                    }
+                };
+                vegaEmbed('#vis', yourVlSpec);
+            } else {
+                var yourVlSpec = {
+                    width: 400,
+                    height: 500,
+                    $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+                    description: 'Public Health Data by Race By Place',
+                    data: { url: "/data/GEORGEDATA.tsv" },
+                    transform: [
+                        { filter: 'datum.Gender == "Both"' },
+                        { filter: indicator },
+                        { filter: place }
+
+                        //{calculate: "datum.Race/ Ethnicity == 2 ? 'Female' : 'Male'", "as": "gender"}
+                    ],
+                    layer: [
+                        {
+                            encoding: {
+                                x: { timeUnit: "year", field: "Year", type: "temporal", axis: { tickCount: "year" }, title: document.getElementById('locations').value + " by Year:   " + yaxislabel },
+                                y: { field: "Value", type: "quantitative" },
+                                color: { field: "Race", type: "nominal" },
+                            },
+                            layer: [
+                                { mark: graphStyle },
+                                {
+                                    selection: {
+                                        label: {
+                                            type: "single",
+                                            nearest: true,
+                                            on: "mouseover",
+                                            encodings: ["x"],
+                                            empty: "none"
+                                        }
+                                    },
+                                    mark: "point",
+                                    encoding: {
+                                        opacity: {
+                                            condition: { selection: "label", value: 1 },
+                                            value: 0
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            transform: [{ filter: { selection: "label" } }],
+                            layer: [
+                                {
+                                    mark: { type: "rule", color: "gray" },
+                                    encoding: {
+                                        x: { timeUnit: "year", field: "Year", type: "temporal", axis: { tickCount: "year" }, title: document.getElementById('locations').value + " by Year:   " + yaxislabel }
+                                    }
+                                },
+                                {
+                                    encoding: {
+                                        text: { type: "quantitative", field: "Value" },
+                                        x: { timeUnit: "year", field: "Year", type: "temporal", axis: { tickCount: "year" }, title: document.getElementById('locations').value + " by Year:   " + yaxislabel },
+                                        y: { field: "Value", type: "quantitative" },
+                                    },
+                                    layer: [
+                                        {
+                                            mark: {
+                                                type: "text",
+                                                stroke: "white",
+                                                strokeWidth: 2,
+                                                align: "left",
+                                                dx: 5,
+                                                dy: -5
+                                            }
+                                        },
+                                        {
+                                            mark: { type: "text", align: "left", dx: 5, dy: -5 },
+                                            encoding: {
+                                                color: { type: "nominal", field: "symbol" }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            };
+            vegaEmbed('#vis', yourVlSpec);
+        }
+
+
+        var mealsByCategory = {
+            "Atlanta (Fulton County), GA": ["Choose an option from below", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Suicide Rate  (Age-Adjusted; Per 100,000 people)"],
+            "Baltimore, MD": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Boston, MA": ["Choose an option from below", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Chicago, IL": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Cleveland, OH": ["Choose an option from below", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Opioid-Related Mortality Rate (Crude Rate; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Suicide Rate  (Age-Adjusted; Per 100,000 people)"],
+            "Dallas, TX": ["Choose an option from below", "HIV Diagnoses Rate (Per 100,000 people)", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Denver, CO": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of Children Who Received Seasonal Flu Shot", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Detroit, MI": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Crude Rate; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Who Are Obese", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Fort Worth (Tarrant County), TX": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Low Birth Weight Babies Born", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Houston, TX": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Kansas City, MO": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Las Vegas (Clark County), NV": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Long Beach, CA": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions.", "Percent of Mothers Under Age 20", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Los Angeles, CA": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of Children Who Received Seasonal Flu Shot", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Miami (Miami-Dade County), FL": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Minneapolis, MN": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "New York, NY": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Oakland, CA": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Who Are Obese", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Philadelphia, PA": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Crude Rate; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Children Who Received Seasonal Flu Shot", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Phoenix, AZ": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of Low Birth Weight Babies Born", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Portland (Multnomah County), OR": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Sacramento, CA": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "San Antonio, TX": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Crude Rate; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "San Diego County, CA": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Drug Abuse-Related Hospitalization Rate (Per 100,000 people) *Comparisons of these data are difficult as definitions can vary.", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of Children Who Received Seasonal Flu Shot", "Percent of Low Birth Weight Babies Born", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "San Francisco, CA": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Life Expectancy at Birth (Years)", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "San Jose, CA": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of Children Who Received Seasonal Flu Shot", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Seattle, WA": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Opioid-Related Mortality Rate (Age-Adjusted; Per 100,000 people) *These data should not be compared across cities as they have different definitions", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "U.S. Total": ["Choose an option from below", "AIDS Diagnoses Rate (Per 100,000 people)", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "All-Cause Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of High School Students Who Are Obese", "Percent of High School Students Who Binge Drank", "Percent of High School Students Who Currently Smoke", "Percent of High School Students Who Meet CDC-Recommended Physical Activity Levels", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"],
+            "Washington, DC": ["Choose an option from below", "All Types of Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Diabetes Mortality Rate (Age-Adjusted; Per 100,000 people)", "Firearm Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "HIV Diagnoses Rate (Per 100,000 people)", "HIV-Related Mortality Rate (Age-Adjusted; Per 100,000 people)", "Heart Disease Mortality Rate (Age-Adjusted; Per 100,000 people)", "Homicide Rate (Age-Adjusted; Per 100,000 people)", "Infant Mortality Rate (Per 1,000 live births)", "Life Expectancy at Birth (Years)", "Lung Cancer Mortality Rate (Age-Adjusted; Per 100,000 people)", "Motor Vehicle Mortality Rate (Age-Adjusted; Per 100,000 people)", "Percent of Adults Over Age 65 Who Received Pneumonia Vaccine", "Percent of Adults Who Are Obese", "Percent of Adults Who Binge Drank", "Percent of Adults Who Currently Smoke", "Percent of Adults Who Meet CDC-Recommended Physical Activity Levels", "Percent of Adults Who Received Seasonal Flu Shot", "Percent of Low Birth Weight Babies Born", "Persons Living with HIV/AIDS Rate (Per 100,000 people)", "Pneumonia and Influenza Mortality Rate (Age-Adjusted; Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Salmonella (Per 100,000 people)", "Rate of Laboratory Confirmed Infections Caused by Shiga Toxin-Producing E-Coli (Per 100,000 people)", "Tuberculosis Incidence Rate (Per 100,000 people)"]
+        }
+
+
+        function getLocation(value) {
+            if (value.length == 0) document.getElementById("category").innerHTML = "<option></option>";
+            else {
+                var catOptions = "";
+                for (categoryId in mealsByCategory[value]) {
+                    catOptions += "<option>" + mealsByCategory[value][categoryId] + "</option>";
+                }
+                document.getElementById("category").innerHTML = catOptions;
+            }
+
+            place = 'datum.Place == "' + document.getElementById('locations').value + '"';
+
+
+
+            /*console.log(place)*/
+        }
+        function setIndicator(value) {
+            place = 'datum.Place == "' + document.getElementById('locations').value + '"';
+            console.log(value)
+            yaxislabel = value
+            indicator = 'datum.Indicator == "' + value + '"'
+            console.log(indicator)
+            console.log(place)
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var checkbox = document.querySelector('input[type="checkbox"]');
+
+            checkbox.addEventListener('change', function () {
+                if (checkbox.checked) {
+                    graphStyle = 'line'
+                } else {
+                    graphStyle = 'bar'
+                }
+            });
+        });
+
+
+        const images = [
+            img1 = "https://d23.com/app/uploads/2020/01/1180w-463h_010920-riviera-art-gallery-780x440.jpg",
+            img2 = "https://images.unsplash.com/photo-1556103255-4443dbae8e5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+            img3 = "https://photographylife.com/wp-content/uploads/2016/06/Brown-Anole-960x640.jpg",
+            img4 = "https://static.scientificamerican.com/sciam/cache/file/4E0744CD-793A-4EF8-B550B54F7F2C4406.jpg",
+            img5 = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/nature-quotes-1557340276.jpg?crop=0.666xw:1.00xh;0.168xw,0&resize=640:*",
+            img6 = "https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/tnc_69881045.jpg?crop=240,0,2400,1320&wid=4000&hei=2200&scl=0.6",
+            img7 = "https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/Independence-Lake-Clean-Drinking-Water_4000x2200.jpg?crop=1175,0,1650,2200&wid=600&hei=800&scl=2.75",
+            img8 = "https://www.cia.edu/files/home/crop/screenshot2020-04-2408.33.07.png"
+        ]
+
+    </script>
+</body>
+
+</html>
