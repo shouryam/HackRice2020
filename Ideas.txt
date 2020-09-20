@@ -1,0 +1,56 @@
+BRAINSTORM
+
+Data Sci and Firsttimers:
+    Substance Abuse Website - help people by showing htem reources that worked for people with similar issues or situations based on the dataset
+    app to alert users of frequent patroling in an area
+
+    minority maps- like the covid map
+        - connect volunteers (students) to underrepresented communities for free tutoring services/resources 
+    Visualization of public heath proboems by demographic to raise awareness of problems    
+
+    peer 2 peer connection for underpivledged communities 
+
+https://data.world/shouryamunjal/hackrice2020/workspace/project-summary?agentid=health&datasetid=big-cities-healthDesign~~~
+- black/minority art in the background- ability to submit art to the database 
+
+
+https://data.world/health/big-cities-health
+
+
+https://data.world/health/big-cities-health
+
+
+https://stackoverflow.com/questions/7431268/how-to-read-data-from-csv-file-using-javascript
+
+
+
+
+
+
+Design~~~
+- black/minority art in the background- ability to submit art to the database 
+- https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
+
+https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
+
+
+https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
+
+
+https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
+
+
+https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
+
+
+https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
+
+
+https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
+
+
+https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
+
+https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
+
+https://blog.ruanbekker.com/blog/2017/12/14/graphing-pretty-charts-with-python-flask-and-chartjs/
