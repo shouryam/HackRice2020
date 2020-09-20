@@ -26,22 +26,22 @@
                 
         </div>
     </div>
-    <div id="resourcesModal" class="this-modal">
-        <div style="display:flex">
+    <div id="resourcesModal" style = "padding-left: 80px;padding-right:80px" class="this-modal">
+        <div style="display:flex;">
             <div class="this-modal-content">
-                <p>Behavorial Health and Substance Abuse</p>
+                <h6>Behavorial Health and Substance Abuse</h6>
                 <a target = "_blank" href="https://www.samhsa.gov/find-help/national-helpline">National Helpline and Resources</a>
                 <br />
-                <a target = "_blank" href="https://www.mhanational.org/donate-mental-health-america">Donate</a>
+                <a target = "_blank" href="https://www.psychiatry.org/psychiatrists/cultural-competency/education/mental-health-facts">American Psychiatric Association</a>
             </div>
             <div class="this-modal-content">
-                <p>Cancer</p>
-                <a target = "_blank" href="https://www.samhsa.gov/find-help/national-helpline">ACS Local Resource Finder</a>
+                <h6>Cancer</h6>
+                <a target = "_blank" href="https://www.cancer.org/treatment/support-programs-and-services.html">American Center Society Local Resource Finder</a>
                 <br />
-                <a target = "_blank" href="https://www.cancer.org/involved/donate.html">Donate</a>
+                <a target = "_blank" href="https://www.cancer.org/involved/donate.html">American Center Society Donation</a>
             </div>
             <div class="this-modal-content">
-                <p>HIV/AIDS</p>
+                <h6>HIV/AIDS</h6>
                 <a target = "_blank" href="https://www.amfar.org/hiv-racial-disparities-cnn/">Closing HIV Racial Disparities</a>
                 <br />
                 <a target = "_blank"
@@ -51,20 +51,20 @@
         </div>
         <div style="display:flex">
             <div class="this-modal-content">
-                <p>Infectious Disease</p>
+                <h6>Infectious Disease</h6>
                 <a target = "_blank" href="https://www.nejm.org/doi/full/10.1056/NEJMp2019445">COVID and Color</a>
                 <br />
                 <a target = "_blank" href="https://www.niaid.nih.gov/research/minority-health">National Institute of Allergy and
                     Infectious Diseases</a>
             </div>
             <div class="this-modal-content">
-                <p>Injury and Violence</p>
+                <h6>Injury and Violence</h6>
                 <a target = "_blank" href="https://oag.ca.gov/firearms/tips">Firearm Safety</a>
                 <br />
                 <a target = "_blank" href="http://www.sprc.org/scope/racial-ethnic-disparities">Suicide Prevention Center</a>
             </div>
             <div class="this-modal-content">
-                <p>Life Expectancy and Death Rate</p>
+                <h6>Life Expectancy and Death Rate</h6>
                 <a target = "_blank" href="https://www.healthaffairs.org/doi/full/10.1377/hlthaff.2011.0746">Life Expectancy and Race</a>
                 <br />
                 <a target = "_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/covid-data/investigations-discovery/hospitalization-death-by-race-ethnicity.html">CDC</a>
@@ -72,31 +72,32 @@
         </div>
         <div style="display:flex">
             <div class="this-modal-content">
-                <p>Maternal and Child Health</p>
-                <a
-                target = "_blank" 
-                    href="https://www.americanprogress.org/issues/women/reports/2019/05/02/469186/eliminating-racial-disparities-maternal-infant-mortality/">Center
-                    for American Progress</a>
+                <h6>Maternal and Child Health</h6>
+                <a target = "_blank" href="https://www.americanprogress.org/issues/women/reports/2019/05/02/469186/eliminating-racial-disparities-maternal-infant-mortality/">Center for American Progress</a>
                 <br />
                 <a target = "_blank"
-                    href="https://ccf.georgetown.edu/2018/06/11/disparities-exist-in-childrens-coverage-by-raceethnicity-income-and-maternal-health/">Georgetown
-                    University Center for Children and Families</a>
+                    href="https://ccf.georgetown.edu/2018/06/11/disparities-exist-in-childrens-coverage-by-raceethnicity-income-and-maternal-health/">Georgetown Center for Children and Families</a>
             </div>
             <div class="this-modal-content">
-                <p>Nutrition and Physical Activity</p>
+                <h6>Nutrition and Physical Activity</h6>
+                <!--<br/>-->
                 <a target = "_blank"
                     href="https://blogs.cdc.gov/healthequity/2019/04/24/addressing-racial-and-ethnic-health-disparities-in-adult-obesity-and-encouraging-physical-activity-this-national-minority-health-month/">CDC</a>
                 <br />
                 <a target = "_blank" href="https://academic.oup.com/ajcn/article/93/5/1161S/4597882">The American Journal of Clinical
                     Nutrition</a>
+                <!--<br/>-->
             </div>
             <div class="this-modal-content">
-                <p>Tobacco</p>
+                
+                <h6>Tobacco</h6>
+                <!--<br/>-->
                 <a
                 target = "_blank" href="https://www.lung.org/quit-smoking/smoking-facts/impact-of-tobacco-use/tobacco-use-racial-and-ethnic">American
                     Lung Association</a>
                 <br />
                 <a target = "_blank" href="https://www.cdc.gov/tobacco/disparities/index.htm">CDC</a>
+                <!--<br/>-->
             </div>
         </div>
     </div>
@@ -114,14 +115,10 @@
                 </div>
                 <div id="selections" style="display:flex">
                     <div style="min-width: 30vw;width:30vw;height: 75vh;padding:15px">
-                        Bar
-                        <div class="switch custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                            <label class="custom-control-label" for="customSwitch1">Line</label>
-                        </div>
                         <br />
-
+                        <h5>Selections</h5>
                         <div style="height:50px;display:flex;">
+                            
                             <p style="vertical-align:center;width:100px;margin-top:10px">Location</p>
                             <select style="padding:5px!important;margin-bottom:5px"
                                 class="col-form-label-sm form-control" onchange="getLocation(this.value)"
@@ -163,32 +160,38 @@
                             </select>
                         </div>
                         <div style="display:flex">
-                            <p style="width:100px;margin-top:10px">Issue</p>
+                            <p style="width:100px;margin-top:10px">Health Indicator</p>
                             <select style="padding:5px!important;" onchange="setIndicator(value)"
                                 class="form-control col-form-label-sm" name="category" id="category">
-                                <option value="" disabled selected>Select Above First</option>ß
+                                <option value="" disabled selected>Select Location First</option>ß
                             </select>
                         </div>
-                        <br />
-                        <button onclick="graphNew()" type="button" class="btn-sm btn btn-outline-primary">Graph</button>
-                        <button id="mission" class="btn btn-sm btn-outline-success">Data Information</button>
-                        <button id="resources" class="btn btn-sm btn-outline-danger">Resources</button>
-                        </br>
-                        </br>
-                        </br>
-                        </br>
-                        </br>
-                        </br>
+                            <div style = "float:left;position:relative;right:35px">
+                                <div style = "display:flex" class="switch custom-control custom-switch">
+                                    <p>Bar</p>
+                                   <div style = "position:relative; left:50px"> <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                   <label class="custom-control-label" for="customSwitch1">Line</label></div>
+                              </div>
+                            </div>
+                            <button style = "float:right" onclick="graphNew()" type="button" class="btn btn-outline-primary">Graph</button>
+                    
+                        
                         <br/>
                         <br/>
-                        </br>
+                        <br/>
+                        <br/>
                         <h5>Our Mission</h5>
+                        <div class = "our-mission">
                         Clear patterns of healthcare inequity exist along racial lines. However, the severity of
                         these trends may be hard to put into perspective. The mission of this website is to provide
                         all individuals with quantitative information to better understand the breadth and
                         depth of this healthcare inequity crisis. When more individuals become aware of how race
                         affects healthcare outcomes, we can add urgency to the movement for greater equality.
                         Please feel free to look around for resources you can use to become an ally!
+                    </div>
+                    <br/>
+                    <button id="mission" class="btn btn-outline-success">Data Information</button>
+                        <button id="resources" class="btn btn-outline-danger">External Resources</button>
                     </div>
 
                 </div>
